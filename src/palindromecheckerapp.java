@@ -1,45 +1,51 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 import java.util.Scanner;
 
     public class palindromecheckerapp {
         public static void main(String[] args){
 
 
+
                     Scanner scanner = new Scanner(System.in);
-                    System.out.print("Enter a string to check if it's a palindrome: ");
-                    String input = scanner.nextLine();
+                    System.out.print("Enter a string to validate: ");
+                    String input = scanner.nextLine(); // Based on hint
 
-                    // Normalize input (optional: remove spaces and ignore case)
-                    String processedInput = input.replaceAll("\\s+", "").toLowerCase();
+                    // Create a Queue to store characters in FIFO order
+                    Queue<Character> queue = new LinkedList<>();
 
-                    // Create a Deque to store characters
-                    Deque<Character> deque = new ArrayDeque<>();
+                    // Create a Stack to store characters in LIFO order
+                    Stack<Character> stack = new Stack<>();
 
-                    // Add each character to the deque
-                    for (char c : processedInput.toCharArray()) {
-                        deque.addLast(c);
+                    // Insert each character into both queue and stack
+                    for (char c : input.toCharArray()) {
+                        queue.add(c);
+                        stack.push(c);
                     }
 
-                    // Flag to track palindrome result
+                    // Flag to track palindrome status
                     boolean isPalindrome = true;
 
-                    // Continue comparison while more than one element exists
-                    while (deque.size() > 1) {
-                        char first = deque.removeFirst();
-                        char last = deque.removeLast();
+                    // Compare characters until the queue becomes empty
+                    while (!queue.isEmpty()) {
+                        // FIFO: removes the first char added
+                        char fromQueue = queue.remove();
+                        // LIFO: removes the last char added
+                        char fromStack = stack.pop();
 
-                        if (first != last) {
+                        if (fromQueue != fromStack) {
                             isPalindrome = false;
                             break;
                         }
                     }
 
-                    // Output the result
+                    // Display results
                     if (isPalindrome) {
-                        System.out.println("\"" + input + "\" is a palindrome.");
+                        System.out.println("The string \"" + input + "\" is a palindrome.");
                     } else {
-                        System.out.println("\"" + input + "\" is not a palindrome.");
+                        System.out.println("The string \"" + input + "\" is NOT a palindrome.");
                     }
 
                     scanner.close();
