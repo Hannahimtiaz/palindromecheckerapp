@@ -2,50 +2,29 @@
 import java.util.Scanner;
 public class palindromecheckerapp {
 
-    public static void main(String[] args) {
-
-        /**
-         * ============================================================
-         * MAIN CLASS - UseCase2PalindromeCheckerApp
-         * ============================================================
-         *
-         * Use Case 2: Palindrome Validation using User Input
-         *
-         * Description:
-         * This class demonstrates palindrome validation
-         * using a string entered by the user.
-         *
-         * @author Developer
-         * @version 2.0
-         */
+    public static void main(String[] args){
 
 
+                Scanner scanner = new Scanner(System.in);
 
+                System.out.println("Enter a string to check if it is a palindrome:");
+                String input = scanner.nextLine();
 
-            Scanner scanner = new Scanner(System.in);
+                String reversed = "";
 
-            System.out.println("Input text:");
-            String input = scanner.nextLine();
-
-            boolean isPalindrome = true;
-
-            // Loop only till half of the string length
-            for (int i = 0; i < input.length() / 2; i++) {
-
-                // Compare characters from start and end
-                if (input.charAt(i) != input.charAt(input.length() - 1 - i)) {
-                    isPalindrome = false;
-                    break;
+                // Iterate from the last character to the first
+                for (int i = input.length() - 1; i >= 0; i--) {
+                    reversed = reversed + input.charAt(i);
                 }
-            }
 
-            // Display result
-            if (isPalindrome) {
-                System.out.println(input + " is a Palindrome.");
-            } else {
-                System.out.println(input + " is NOT a Palindrome.");
-            }
+                // Compare original and reversed string
+                if (input.equals(reversed)) {
+                    System.out.println(input + " is a Palindrome.");
+                } else {
+                    System.out.println(input + " is NOT a Palindrome.");
+                }
 
-            scanner.close();
+                scanner.close();
+            }
         }
-    }
+
