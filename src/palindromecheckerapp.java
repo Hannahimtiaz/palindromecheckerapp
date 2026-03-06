@@ -8,46 +8,27 @@ import java.util.Scanner;
         public static void main(String[] args){
 
 
+            String input = "level";
 
-                    Scanner scanner = new Scanner(System.in);
-                    System.out.print("Enter a string to validate: ");
-                    String input = scanner.nextLine(); // Based on hint
+            LinkedList<Character> list = new LinkedList<>();
 
-                    // Create a Queue to store characters in FIFO order
-                    Queue<Character> queue = new LinkedList<>();
+            for (char c : input.toCharArray()) {
+                list.add(c);
+            }
 
-                    // Create a Stack to store characters in LIFO order
-                    Stack<Character> stack = new Stack<>();
+            boolean isPalindrome = true;
 
-                    // Insert each character into both queue and stack
-                    for (char c : input.toCharArray()) {
-                        queue.add(c);
-                        stack.push(c);
-                    }
+            while (list.size() > 1) {
+                char first = list.removeFirst();
+                char last = list.removeLast();
 
-                    // Flag to track palindrome status
-                    boolean isPalindrome = true;
-
-                    // Compare characters until the queue becomes empty
-                    while (!queue.isEmpty()) {
-                        // FIFO: removes the first char added
-                        char fromQueue = queue.remove();
-                        // LIFO: removes the last char added
-                        char fromStack = stack.pop();
-
-                        if (fromQueue != fromStack) {
-                            isPalindrome = false;
-                            break;
-                        }
-                    }
-
-                    // Display results
-                    if (isPalindrome) {
-                        System.out.println("The string \"" + input + "\" is a palindrome.");
-                    } else {
-                        System.out.println("The string \"" + input + "\" is NOT a palindrome.");
-                    }
-
-                    scanner.close();
+                if (first != last) {
+                    isPalindrome = false;
+                    break;
                 }
             }
+
+            System.out.println("Input : " + input);
+            System.out.println("Is Palindrome? : " + isPalindrome);
+        }
+    }
