@@ -8,46 +8,23 @@ import java.util.Scanner;
         public static void main(String[] args){
 
 
+            String input = "madam";
+            boolean result = check(input, 0, input.length() - 1);
 
-                    Scanner scanner = new Scanner(System.in);
-                    System.out.print("Enter a string to validate: ");
-                    String input = scanner.nextLine(); // Based on hint
+            System.out.println("Input : " + input);
+            System.out.println("Is Palindrome? : " + result);
+        }
 
-                    // Create a Queue to store characters in FIFO order
-                    Queue<Character> queue = new LinkedList<>();
+        private static boolean check(String s, int start, int end) {
 
-                    // Create a Stack to store characters in LIFO order
-                    Stack<Character> stack = new Stack<>();
-
-                    // Insert each character into both queue and stack
-                    for (char c : input.toCharArray()) {
-                        queue.add(c);
-                        stack.push(c);
-                    }
-
-                    // Flag to track palindrome status
-                    boolean isPalindrome = true;
-
-                    // Compare characters until the queue becomes empty
-                    while (!queue.isEmpty()) {
-                        // FIFO: removes the first char added
-                        char fromQueue = queue.remove();
-                        // LIFO: removes the last char added
-                        char fromStack = stack.pop();
-
-                        if (fromQueue != fromStack) {
-                            isPalindrome = false;
-                            break;
-                        }
-                    }
-
-                    // Display results
-                    if (isPalindrome) {
-                        System.out.println("The string \"" + input + "\" is a palindrome.");
-                    } else {
-                        System.out.println("The string \"" + input + "\" is NOT a palindrome.");
-                    }
-
-                    scanner.close();
-                }
+            if (start >= end) {
+                return true;
             }
+
+            if (s.charAt(start) != s.charAt(end)) {
+                return false;
+            }
+
+            return check(s, start + 1, end - 1);
+        }
+    }
