@@ -1,37 +1,39 @@
 
 
 import java.util.Stack;
+import java.util.Scanner;
 public class palindromecheckerapp {
         public static void main(String[] args){
 
-            String input = "level";
-            PalindromeStrategy strategy = new StackStrategy();
-            boolean result = strategy.check(input);
+                Scanner scanner = new Scanner(System.in);
 
-            System.out.println("Input : " + input);
-            System.out.println("Is Palindrome? : " + result);
-        }
-    }
+                System.out.print("Input : ");
+                String input = scanner.nextLine();
 
-    interface PalindromeStrategy {
-        boolean check(String input);
-    }
+                long startTime = System.nanoTime();
 
-    class StackStrategy implements PalindromeStrategy {
+                boolean isPalindrome = checkPalindrome(input);
 
-        public boolean check(String input) {
-            Stack<Character> stack = new Stack<>();
+                long endTime = System.nanoTime();
+                long duration = endTime - startTime;
 
-            for (char c : input.toCharArray()) {
-                stack.push(c);
+                System.out.println("Is Palindrome? : " + isPalindrome);
+                System.out.println("Execution Time : " + duration + " ns");
+
+                scanner.close();
             }
 
-            for (char c : input.toCharArray()) {
-                if (c != stack.pop()) {
+            private static boolean checkPalindrome(String str) {
+                if (str == null) {
                     return false;
                 }
+                String cleanStr = str.replaceAll("\\s+", "").toLowerCase();
+                int length = cleanStr.length();
+                for (int i = 0; i < length / 2; i++) {
+                    if (cleanStr.charAt(i) != cleanStr.charAt(length - 1 - i)) {
+                        return false;
+                    }
+                }
+                return true;
             }
-
-            return true;
         }
-    }
